@@ -1,0 +1,62 @@
+.body {
+  background-color: rgb(196, 201, 210);
+  font-family: "Impact", Serif;
+  box-sizing: border-box;
+  min-height: 100vh;
+  max-width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  // overscroll-behavior: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+.beforeTable {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 70px;
+  padding: 50px;
+
+  .filter {
+    flex: 1;
+    max-width: 300px;
+    height: 40px;
+    border-radius: 4px;
+  }
+}
+
+.tableposition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.secondTable {
+  border: none;
+  width: 90%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    border: 1px solid rgb(17, 18, 15);
+    padding: 8px;
+  }
+  tr:nth-child(even) {
+    background-color: rgb(221, 228, 221);
+  }
+
+  th {
+    width: 25%;
+  }
+
+  th {
+    background-color: #767d7f;
+    color: rgb(22, 36, 40);
+  }
+}
