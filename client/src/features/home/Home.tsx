@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { clsx } from "clsx";
 import { NewArtistModal } from "./NewArtistModal";
 import * as dayjs from "dayjs";
@@ -7,20 +8,43 @@ import { http } from "../../libs/axios";
 import Pagination from "./Pagination";
 
 import s from "./Home.module.scss";
+import { useCookies } from "react-cookie";
+
+export interface Artist {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  position: string;
+  birth: Date;
+}
+
+interface FetchAtistsDTO {
+  data: Artist[];
+  total: number;
+}
 
 function Home() {
+  console.log("RERENDER");
   const navigate = useNavigate();
 
-  const [artists, setArtist] = useState([]);
-  // DONT NEED
-  const [searchTerm, setSearchTerm] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
-  // const cp = searchParams.get('page') ?? 1;
-  const [total, setTotal] = useState(0);
-  const postsPerPage = 8;
-  total;
+  const [artists, setArtist] = useState<Artist[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  // null undefined;
+  const searchTerm = searchParams.get("search") ?? "";
+  // string number boolean null undefined NaN
+  // ""     0      false   null undefined NaN
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const [total, setTotal] = useState(0);
+  const postsPerPage = 10;
+  const [cookies] = useCookies(["token"]);
+
+  // umesto ovoga probaj da izvuces iz browsera localStorage sa key-em: 'token'
+  // jwt.decode za tu vrednost
+  // proveri expiration time da li je istekao u odnosu na danasnji datum
   useEffect(() => {
+    const curentDate = Date.now();
+    console.log(cookies);
     http
       .get("/home")
       .then((result) => {
@@ -38,7 +62,7 @@ function Home() {
 
   const fetchArtists = async () => {
     try {
-      const response = await http.get("/artists", {
+      const response = await http.get<FetchAtistsDTO>("/artists", {
         params: {
           page: currentPage,
           size: postsPerPage,
@@ -62,8 +86,15 @@ function Home() {
           placeholder="Search"
           value={searchTerm}
           onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1);
+            setSearchParams((params) => {
+              params.delete("page");
+              if (!e.target.value) {
+                params.delete("search");
+                return params;
+              }
+              params.set("search", e.target.value);
+              return params;
+            });
           }}
         />
         <NewArtistModal fetchArtists={fetchArtists} />
@@ -94,8 +125,16 @@ function Home() {
       <Pagination
         totalPosts={total}
         postsPerPage={postsPerPage}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
+        setCurrentPage={(page: number) => {
+          setSearchParams((params) => {
+            if (page === 1) {
+              params.delete("page");
+              return params;
+            }
+            params.set("page", page.toString());
+            return params;
+          });
+        }}
       />
     </div>
   );

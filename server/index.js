@@ -43,7 +43,7 @@ app.get("/home", verifyUser, (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body.data;
   const user = await UserModel.findOne({ email: email });
 
   if (!user) {
@@ -55,22 +55,20 @@ app.post("/login", async (req, res) => {
       return res.status(401).json("Invlaid credentials.");
     }
 
-    const token = jwt.sign({ email: user.email }, "jwt-secret-key", {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      "jwt-secret-key",
+      {
+        expiresIn: "1d",
+      }
+    );
 
-    return res
-      .cookie("token", token, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
-      })
-      .json("Success");
+    return res.json({ token });
   });
 });
 
 app.post("/register", (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password } = req.body.data;
   bcrypt
     .hash(password, 10)
     .then((hash) => {
@@ -81,14 +79,26 @@ app.post("/register", (req, res) => {
     .catch((err) => console.log(err.message));
 });
 
-app.post("/artists", (req, res) => {
-  ArtistModel.create(req.body)
+app.post("/artists", verifyUser, (req, res) => {
+  // req.headers.authrization
+  const token = req.cookies.token;
+  const { id } = jwt.decode(token);
+
+  const newArtist = {
+    ...req.body,
+    userId: id,
+  };
+
+  ArtistModel.create(newArtist)
     .then((artists) => res.json(artists))
     .catch((err) => res.json(err));
 });
 
 app.get("/artists", verifyUser, async (req, res) => {
   try {
+    const token = req.cookies.token;
+    const { id } = jwt.decode(token);
+
     let { page, size, searchTerm } = req.query;
 
     if (!page) {
@@ -112,8 +122,12 @@ app.get("/artists", verifyUser, async (req, res) => {
       };
     }
 
-    const total = await ArtistModel.count(query);
-    const artists = await ArtistModel.find(query, {}, { limit, skip });
+    const total = await ArtistModel.where({ userId: id }).count(query);
+    const artists = await ArtistModel.where({ userId: id }).find(
+      query,
+      {},
+      { limit, skip }
+    );
     return res.send({ data: artists, total });
   } catch (err) {
     console.error(err);

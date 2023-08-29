@@ -1,6 +1,16 @@
 import s from "./Pagination.module.scss";
 
-function Pagination({ totalPosts, postsPerPage, setCurrentPage }) {
+interface Props {
+  totalPosts: number;
+  postsPerPage: number;
+  setCurrentPage: (page: number) => void;
+}
+
+const Pagination: React.FC<Props> = ({
+  totalPosts,
+  postsPerPage,
+  setCurrentPage,
+}) => {
   const pages = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -18,6 +28,6 @@ function Pagination({ totalPosts, postsPerPage, setCurrentPage }) {
       })}
     </div>
   );
-}
+};
 
 export default Pagination;

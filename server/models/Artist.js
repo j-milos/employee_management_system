@@ -5,6 +5,7 @@ const ArtistSchema = new mongoose.Schema({
   lastName: String,
   position: String,
   birth: Date,
+  userId: String,
 });
 
 const ArtistModel = mongoose.model("artists", ArtistSchema);

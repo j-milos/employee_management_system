@@ -5,8 +5,13 @@ import * as yup from "yup";
 import { http } from "../../libs/axios";
 
 import s from "./NewArtistModal.module.scss";
+import { Artist } from "./Home";
 
-export const NewArtistModal = ({ fetchArtists }) => {
+interface Props {
+  fetchArtists: () => void;
+}
+
+export const NewArtistModal: React.FC<Props> = ({ fetchArtists }) => {
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -17,7 +22,10 @@ export const NewArtistModal = ({ fetchArtists }) => {
     firstName: yup.string().required("First name is Required"),
     lastName: yup.string().required("Last name is Required"),
     position: yup.string().required("What is your current position"),
-    birth: yup.date().typeError("When is your birthday"),
+    birth: yup
+      .date()
+      .typeError("When is your birthday")
+      .required("Birthday is required."),
   });
 
   const {
@@ -29,7 +37,7 @@ export const NewArtistModal = ({ fetchArtists }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: Omit<Artist, "_id">) => {
     try {
       await http.post("/artists", data);
       setModal(false);
