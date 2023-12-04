@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const UserModel = require("./models/User");
-const ArtistModel = require("./models/Artist");
+const EmployeeModel = require("./models/Employee");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
@@ -11,8 +11,8 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5173"],
-    methods: ["GET", "POST"],
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
@@ -20,9 +20,13 @@ app.use(cookieParser());
 
 mongoose.connect("mongodb://localhost:27017/ceme-database");
 
+const getTokenFromHeader = (authHeader) => {
+  return authHeader.split(" ")[1];
+};
+
 // Middleware
-const verifyUser = (req, res, next) => {
-  const token = req.cookies.token;
+const verifyToken = (req, res, next) => {
+  const token = getTokenFromHeader(req.headers.authorization);
   if (!token) {
     res.statusCode = 401;
     return res.json("The token was not available");
@@ -38,7 +42,7 @@ const verifyUser = (req, res, next) => {
   console.log(token);
 };
 
-app.get("/home", verifyUser, (req, res) => {
+app.get("/home", verifyToken, (req, res) => {
   return res.json("Success");
 });
 
@@ -73,30 +77,30 @@ app.post("/register", (req, res) => {
     .hash(password, 10)
     .then((hash) => {
       UserModel.create({ name, email, password: hash })
-        .then((employees) => res.json(employees))
+        .then((user) => res.json(user))
         .catch((err) => res.json(err));
     })
     .catch((err) => console.log(err.message));
 });
 
-app.post("/artists", verifyUser, (req, res) => {
+app.post("/artists", verifyToken, (req, res) => {
   // req.headers.authrization
-  const token = req.cookies.token;
+  const token = getTokenFromHeader(req.headers.authorization);
   const { id } = jwt.decode(token);
 
-  const newArtist = {
+  const newEmployee = {
     ...req.body,
     userId: id,
   };
 
-  ArtistModel.create(newArtist)
-    .then((artists) => res.json(artists))
+  EmployeeModel.create(newEmployee)
+    .then((employee) => res.json(employee))
     .catch((err) => res.json(err));
 });
 
-app.get("/artists", verifyUser, async (req, res) => {
+app.get("/artists", verifyToken, async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token = getTokenFromHeader(req.headers.authorization);
     const { id } = jwt.decode(token);
 
     let { page, size, searchTerm } = req.query;
@@ -122,8 +126,8 @@ app.get("/artists", verifyUser, async (req, res) => {
       };
     }
 
-    const total = await ArtistModel.where({ userId: id }).count(query);
-    const artists = await ArtistModel.where({ userId: id }).find(
+    const total = await EmployeeModel.where({ userId: id }).count(query);
+    const artists = await EmployeeModel.where({ userId: id }).find(
       query,
       {},
       { limit, skip }

@@ -6,7 +6,7 @@ body.active-modal {
   padding: 5px 20px;
   display: block;
   font-size: 18px;
-  border-radius: 4px;
+  border-radius: 16px;
 }
 
 .modal,
@@ -30,9 +30,9 @@ body.active-modal {
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
-  background: #f1f1f1;
+  background-color: #191d31;
   padding: 14px 28px;
-  border-radius: 3px;
+  border-radius: 15px;
   max-width: 600px;
   min-width: 300px;
 }
@@ -41,10 +41,18 @@ body.active-modal {
   position: absolute;
   top: 10px;
   right: 10px;
-  padding: 1px 20px;
-  border-radius: 4px;
-  background-color: rgb(220, 10, 10);
+  background-color: transparent;
+  border: none;
   color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 .header {
@@ -54,11 +62,9 @@ body.active-modal {
   align-items: center;
 
   .headline {
-    margin: 20px;
-    font-size: 31px;
-    &:hover {
-      color: brown;
-    }
+    margin: 40px;
+    font-size: 20px;
+    color: #e4e6e9;
   }
 
   .form {

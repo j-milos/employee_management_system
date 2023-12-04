@@ -1,0 +1,101 @@
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #191d31;
+  // Proveri zašto je visina samo do pola
+  .card {
+    max-width: 430px;
+    width: 100%;
+    background: #fff;
+    padding: 34px;
+    border-radius: 6px;
+    box-shadow: 0 17px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .loginRegiserForm {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      .inputs {
+        height: 100%;
+        width: 100%;
+        height: 52px;
+        outline: none;
+        padding: 0 15px;
+        font-size: 17px;
+        font-weight: 400;
+        color: #333;
+        border: 1.5px solid #c7bebe;
+        border-bottom-width: 2.5px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+
+        &:focus {
+          border-color: #4070f4;
+        }
+      }
+      .loginRegisterBtn {
+        padding: 0 15px;
+        font-size: 18px;
+        font-weight: 500;
+        height: 52px;
+        border: 1.5px solid #c7bebe;
+        border-radius: 6px;
+        background: #4070f4;
+        color: #fff;
+        letter-spacing: 1px;
+        cursor: pointer;
+
+        &:hover {
+          background: #0e4bf1;
+        }
+      }
+    }
+    .dontHaveAcc {
+      margin-top: 15px;
+      display: flex;
+
+      h3 {
+        color: #333;
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+      }
+      .link {
+        text-decoration: none;
+        font-size: 14px;
+        white-space: nowrap;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    .errorMsg {
+      font-size: 12px;
+      color: red;
+    }
+  }
+
+  .card h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 28px;
+    border-radius: 12px;
+    background: #4070f4;
+  }
+}

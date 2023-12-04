@@ -4,14 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { http } from "../../libs/axios";
 
-import s from "./NewArtistModal.module.scss";
-import { Artist } from "./Home";
+import s from "./NewEmployeeModal.module.scss";
+import { Employee } from "./Home";
 
 interface Props {
-  fetchArtists: () => void;
+  fetchEmployee: () => void;
 }
 
-export const NewArtistModal: React.FC<Props> = ({ fetchArtists }) => {
+export const NewEmployeeModal: React.FC<Props> = ({ fetchEmployee }) => {
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -37,12 +37,12 @@ export const NewArtistModal: React.FC<Props> = ({ fetchArtists }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: Omit<Artist, "_id">) => {
+  const onSubmit = async (data: Omit<Employee, "_id">) => {
     try {
       await http.post("/artists", data);
       setModal(false);
       reset();
-      fetchArtists();
+      fetchEmployee();
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +56,7 @@ export const NewArtistModal: React.FC<Props> = ({ fetchArtists }) => {
   return (
     <>
       <button onClick={toggleModal} className={s.btnModal}>
-        Add Artist
+        Add Employee
       </button>
 
       {modal && (
@@ -64,7 +64,7 @@ export const NewArtistModal: React.FC<Props> = ({ fetchArtists }) => {
           <div onClick={toggleModal} className={s.overlay}></div>
           <div className={s.modalContent}>
             <div className={s.header}>
-              <h1 className={s.headline}>Artists information</h1>
+              <h1 className={s.headline}>Employee information</h1>
 
               <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <input
