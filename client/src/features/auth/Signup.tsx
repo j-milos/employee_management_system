@@ -46,14 +46,18 @@ function Signup() {
     formState: { errors },
   } = useForm<RegisterForm>({ resolver: zodResolver(schema) });
 
-  const onSubmit: SubmitHandler<RegisterForm> = (data) => {
-    http
+  const onSubmit: SubmitHandler<RegisterForm> = async(data) => {
+    try{
+      await http
       .post("http://localhost:3001/register", { data })
       .then((result) => {
         console.log(result);
         navigate("/login");
-      })
-      .catch((err) => console.log(err));
+      })}
+      catch(err){
+        console.log(err);
+        
+      }
   };
 
   // const handleSubmit = (e) => {

@@ -39,10 +39,11 @@ function Login() {
     formState: { errors },
   } = useForm<LoginForm>({ resolver: zodResolver(schema) });
 
-  const onSubmit: SubmitHandler<LoginForm> = (data) => {
+  const onSubmit: SubmitHandler<LoginForm> =async (data) => {
     // async await, try catch
     // set token to local storage
-    http
+    try{
+      await http
       .post("http://localhost:3001/login", { data })
       .then((result) => {
         localStorage.setItem("token", result.data.token);
@@ -50,9 +51,13 @@ function Login() {
         if (result.status === 200) {
           navigate("/home");
         }
-      })
-      .catch((err) => console.log(err));
+      })}
+      catch(err){
+        console.log(err);
+        
+      }
   };
+
 
   return (
     <div className={s.container}>
