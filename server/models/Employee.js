@@ -8,6 +8,6 @@ const EmployeeSchema = new mongoose.Schema({
   userId: String,
 });
 
-const EmployeeModel = mongoose.model("artists", EmployeeSchema);
+const EmployeeModel = mongoose.model("employees", EmployeeSchema);
 
 module.exports = EmployeeModel;

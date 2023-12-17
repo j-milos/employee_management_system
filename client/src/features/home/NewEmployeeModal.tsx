@@ -39,7 +39,7 @@ export const NewEmployeeModal: React.FC<Props> = ({ fetchEmployee }) => {
 
   const onSubmit = async (data: Omit<Employee, "_id">) => {
     try {
-      await http.post("/artists", data);
+      await http.post("/employees", data);
       setModal(false);
       reset();
       fetchEmployee();
@@ -93,11 +93,11 @@ export const NewEmployeeModal: React.FC<Props> = ({ fetchEmployee }) => {
                 />
                 <p>{errors.birth?.message}</p>
 
-                <input
+                <button
                   className={s.button}
                   type="submit"
                   // onClick={setArtist(...artists)}
-                />
+                >Submit</button>
               </form>
             </div>
             <button className={s.closeModal} onClick={toggleModal}>

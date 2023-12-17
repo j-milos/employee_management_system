@@ -83,7 +83,7 @@ app.post("/register", (req, res) => {
     .catch((err) => console.log(err.message));
 });
 
-app.post("/artists", verifyToken, (req, res) => {
+app.post("/employees", verifyToken, (req, res) => {
   // req.headers.authrization
   const token = getTokenFromHeader(req.headers.authorization);
   const { id } = jwt.decode(token);
@@ -98,7 +98,7 @@ app.post("/artists", verifyToken, (req, res) => {
     .catch((err) => res.json(err));
 });
 
-app.get("/artists", verifyToken, async (req, res) => {
+app.get("/employees", verifyToken, async (req, res) => {
   try {
     const token = getTokenFromHeader(req.headers.authorization);
     const { id } = jwt.decode(token);
@@ -127,12 +127,12 @@ app.get("/artists", verifyToken, async (req, res) => {
     }
 
     const total = await EmployeeModel.where({ userId: id }).count(query);
-    const artists = await EmployeeModel.where({ userId: id }).find(
+    const employees = await EmployeeModel.where({ userId: id }).find(
       query,
       {},
       { limit, skip }
     );
-    return res.send({ data: artists, total });
+    return res.send({ data: employees, total });
   } catch (err) {
     console.error(err);
     return res.status(418).json(err);

@@ -29,13 +29,49 @@
         font-weight: 600;
         align-self: center;
         padding: 10px;
+        
       }
       ::placeholder {
-        color: #3aa778;
+        color: rgb(68, 167, 238);
         border: none;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 600;
       }
     }
+    .contentTable{
+      border-collapse: collapse;
+      border-radius:40px 40px 0 0 ;
+      overflow: hidden;
+      font-size: 15px;
+      min-width: 400px;
+      
+      thead tr{
+        background-color: #586085;
+        color: #d0d2db ;
+        text-align: center;
+      }
+      th,td{
+        padding: 12px 15px;
+        text-align: center;
+      }
+    }
+    tbody tr{
+      border-bottom: 1px solid #3b405b;
+      background-color: #353a56;
+      color: #9a9ca9;
+      font-weight: 600;
+      font-size: 13px;
+      
+    }
+    tbody tr{
+      border-bottom: 2px solid #444966;
+    }
+    tbody tr:last-of-type{
+      border-bottom: 5px solid #586085;
+    }
+    tbody tr:nth-of-type(even){
+      background-color: #3b4160;
+    }
+    
   }
 }

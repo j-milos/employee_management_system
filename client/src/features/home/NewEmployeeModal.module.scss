@@ -5,8 +5,17 @@ body.active-modal {
 .btnModal {
   padding: 5px 20px;
   display: block;
-  font-size: 18px;
+  font-size: 13px;
   border-radius: 16px;
+  border: none;
+  background-color: #464d71;
+  color:
+  #ccc4c6;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btnModal:hover{
+  color: rgb(34, 152, 236);
 }
 
 .modal,
@@ -81,17 +90,30 @@ body.active-modal {
       border: 2px solid rgb(212, 179, 96);
     }
     .button {
-      background-color: #24c78b;
-      border: none;
-      color: white;
       text-decoration: none;
-      width: 18%;
+      width: 60px;
       min-width: 90px;
       cursor: pointer;
+      border: none;
+      background-color: rgb(79, 94, 112);
+      border-radius: 16px;
+      color: white;
+      align-self: center;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
     }
-    p {
-      font-size: small;
-      color: rgb(184, 22, 22);
+    :hover{
+     color: rgb(34, 152, 236)
+    }
+    p{
+      font-size: 11px;
+      font-weight: 500;
+      color: rgb(226, 226, 219);
+      cursor: pointer;
+    }
+    :hover{
+      color: rgb(226, 226, 219);
     }
   }
 }

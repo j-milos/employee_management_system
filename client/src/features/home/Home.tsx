@@ -43,7 +43,7 @@ function Home() {
 
   const fetchEmployee = async () => {
     try {
-      const response = await http.get<FetchEmployeeDTO>("/artists", {
+      const response = await http.get<FetchEmployeeDTO>("/employees", {
         params: {
           page: currentPage,
           size: postsPerPage,
@@ -79,13 +79,11 @@ function Home() {
               });
             }}
           />
-          <button>
+          
             <NewEmployeeModal fetchEmployee={fetchEmployee} />
-          </button>
+          
         </div>
-
-        <div className={s.tableposition}>
-          <table className={s.secondTable}>
+          <table className={s.contentTable}>
             <thead>
               <tr>
                 <th>First Name</th>
@@ -105,7 +103,7 @@ function Home() {
               ))}
             </tbody>
           </table>
-        </div>
+        
         <Pagination
           totalPosts={total}
           postsPerPage={postsPerPage}
