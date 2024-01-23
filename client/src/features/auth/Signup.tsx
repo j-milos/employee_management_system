@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,9 +35,6 @@ const schema: ZodType<RegisterForm> = z.object({
 });
 
 function Signup() {
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState<string | number>();
-  // const [password, setPassword] = useState<string | number>();
   const navigate = useNavigate();
   const {
     register,
@@ -46,30 +42,18 @@ function Signup() {
     formState: { errors },
   } = useForm<RegisterForm>({ resolver: zodResolver(schema) });
 
-  const onSubmit: SubmitHandler<RegisterForm> = async(data) => {
-    try{
+  const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
+    try {
       await http
-      .post("http://localhost:3001/register", { data })
-      .then((result) => {
-        console.log(result);
-        navigate("/login");
-      })}
-      catch(err){
-        console.log(err);
-        
-      }
+        .post("http://localhost:3001/register", { data })
+        .then((result) => {
+          console.log(result);
+          navigate("/login");
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   http
-  //     .post("http://localhost:3001/register", { name, email, password })
-  //     .then((result) => {
-  //       console.log(result);
-  //       navigate("/login");
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   return (
     <div className={s.container}>

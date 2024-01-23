@@ -6,7 +6,6 @@
   align-items: center;
   justify-content: center;
   background-color: #191d31;
-  // Proveri zašto je visina samo do pola
   .card {
     max-width: 430px;
     width: 100%;
@@ -29,11 +28,8 @@
       gap: 14px;
 
       .inputs {
-        height: 100%;
-        width: 100%;
-        height: 52px;
         outline: none;
-        padding: 0 15px;
+        padding: 16px;
         font-size: 17px;
         font-weight: 400;
         color: #333;

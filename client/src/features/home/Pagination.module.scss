@@ -11,7 +11,7 @@
     font-weight: 600;
     font-size: 16px;
     margin: 0 10px;
-    border-radius: 16px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -19,7 +19,6 @@
     background-color: #586085;
     color: #ccc3c3;
     border-color: #494141;
-
 
     &:active {
       font-weight: 900;

@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FormEvent } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
 import { http } from "../../libs/axios";
@@ -39,25 +37,18 @@ function Login() {
     formState: { errors },
   } = useForm<LoginForm>({ resolver: zodResolver(schema) });
 
-  const onSubmit: SubmitHandler<LoginForm> =async (data) => {
-    // async await, try catch
-    // set token to local storage
-    try{
-      await http
-      .post("http://localhost:3001/login", { data })
-      .then((result) => {
+  const onSubmit: SubmitHandler<LoginForm> = async (data) => {
+    try {
+      const result = await http.post("http://localhost:3001/login", { data });
+
+      if (result.status === 200) {
         localStorage.setItem("token", result.data.token);
-
-        if (result.status === 200) {
-          navigate("/home");
-        }
-      })}
-      catch(err){
-        console.log(err);
-        
+        navigate("/home");
       }
+    } catch (err) {
+      console.log(err);
+    }
   };
-
 
   return (
     <div className={s.container}>

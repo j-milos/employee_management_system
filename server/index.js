@@ -39,7 +39,6 @@ const verifyToken = (req, res, next) => {
       next();
     });
   }
-  console.log(token);
 };
 
 app.get("/home", verifyToken, (req, res) => {
@@ -84,7 +83,6 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/employees", verifyToken, (req, res) => {
-  // req.headers.authrization
   const token = getTokenFromHeader(req.headers.authorization);
   const { id } = jwt.decode(token);
 
@@ -127,11 +125,12 @@ app.get("/employees", verifyToken, async (req, res) => {
     }
 
     const total = await EmployeeModel.where({ userId: id }).count(query);
-    const employees = await EmployeeModel.where({ userId: id }).find(
-      query,
-      {},
-      { limit, skip }
-    );
+    const employees = await EmployeeModel.where({ userId: id })
+      .find(query)
+      .skip(skip)
+      .limit(limit)
+      .exec();
+    console.log("em", employees);
     return res.send({ data: employees, total });
   } catch (err) {
     console.error(err);
@@ -139,18 +138,12 @@ app.get("/employees", verifyToken, async (req, res) => {
   }
 });
 
-// /artists?page=1
-// page, limit, search
 const primerResponsea = {
   data: [{}, {}],
   page: 1,
   limit: 10,
   total: 80,
 };
-
-// app.get("/artist/:id", (req, res) => {
-//   // GET ALL Artists
-// });
 
 app.listen(3001, () => {
   console.log("server is running");

@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { http } from "../../libs/axios";
-
 import s from "./NewEmployeeModal.module.scss";
 import { Employee } from "./Home";
 
@@ -68,18 +67,21 @@ export const NewEmployeeModal: React.FC<Props> = ({ fetchEmployee }) => {
 
               <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <input
+                  className={s.employeeInputs}
                   type="text"
                   placeholder="First Name"
                   {...register("firstName")}
                 />
                 <p>{errors.firstName?.message}</p>
                 <input
+                  className={s.employeeInputs}
                   type="text"
                   placeholder="Last Name"
                   {...register("lastName")}
                 />
                 <p>{errors.lastName?.message}</p>
                 <input
+                  className={s.employeeInputs}
                   type="text"
                   placeholder="Positon"
                   {...register("position")}
@@ -87,17 +89,16 @@ export const NewEmployeeModal: React.FC<Props> = ({ fetchEmployee }) => {
                 <p>{errors.position?.message}</p>
 
                 <input
+                  className={s.employeeInputs}
                   type="date"
                   placeholder="Birtday"
                   {...register("birth")}
                 />
                 <p>{errors.birth?.message}</p>
 
-                <button
-                  className={s.button}
-                  type="submit"
-                  // onClick={setArtist(...artists)}
-                >Submit</button>
+                <button className={s.buttonSubmit} type="submit">
+                  Submit
+                </button>
               </form>
             </div>
             <button className={s.closeModal} onClick={toggleModal}>

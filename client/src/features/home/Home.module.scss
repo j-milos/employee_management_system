@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100dvh;
   background-color: #191d31;
 
   .container {
@@ -12,66 +12,85 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 100px;
 
     .beforeTable {
       display: flex;
       justify-content: space-between;
       gap: 50px;
+
       input {
-        border-radius: 50px;
+        border-radius: 5px;
         background-color: #4f5e70;
         color: #e8e8ed;
         border: none;
         outline: none;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         align-self: center;
         padding: 10px;
-        
       }
       ::placeholder {
-        color: rgb(68, 167, 238);
+        color: rgb(182, 184, 185);
         border: none;
         font-size: 12px;
         font-weight: 600;
       }
+      .btnWrapper {
+        display: flex;
+        gap: 10px;
+        .logoutBtn {
+          border-radius: 5px;
+          padding: 10px;
+          background-color: transparent;
+          border: 0.5px solid white;
+          cursor: pointer;
+          .logoutLink {
+            text-decoration: none;
+            align-self: center;
+            font-size: 12px;
+            color: rgb(214, 206, 206);
+          }
+          &:hover {
+            background-color: #4070f4;
+          }
+        }
+      }
     }
-    .contentTable{
+    .contentTable {
+      margin: 60px 0 30px;
       border-collapse: collapse;
-      border-radius:40px 40px 0 0 ;
+      border-radius: 10px 10px 0 0;
       overflow: hidden;
       font-size: 15px;
       min-width: 400px;
-      
-      thead tr{
+
+      thead tr {
         background-color: #586085;
-        color: #d0d2db ;
+        color: #d0d2db;
         text-align: center;
       }
-      th,td{
+      th,
+      td {
         padding: 12px 15px;
         text-align: center;
       }
     }
-    tbody tr{
+    tbody tr {
       border-bottom: 1px solid #3b405b;
       background-color: #353a56;
       color: #9a9ca9;
       font-weight: 600;
       font-size: 13px;
-      
     }
-    tbody tr{
+    tbody tr {
       border-bottom: 2px solid #444966;
     }
-    tbody tr:last-of-type{
+    tbody tr:last-of-type {
       border-bottom: 5px solid #586085;
     }
-    tbody tr:nth-of-type(even){
+    tbody tr:nth-of-type(even) {
       background-color: #3b4160;
     }
-    
   }
 }
