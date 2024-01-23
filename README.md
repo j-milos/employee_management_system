@@ -2,7 +2,7 @@
 
 ## Description
 
-Project description
+The goal of this project was to make fully responsive Employee Database Management System with login and registration pages.This project leverages React, Typescript, and SCSS modules on the frontend, while utilizing MongoDB on the backend. Each user securely accesses their own employee records, thanks to MongoDB integration for storage of user and employee data.Cookies are stored in local storage, while the search functionality is implemented using search parameters (search params).
 
 ## Instructions
 
