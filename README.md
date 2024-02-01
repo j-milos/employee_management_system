@@ -1,4 +1,4 @@
-# Login/Registration, Employees database
+# Employee management system
 
 ## Description
 
